@@ -1,44 +1,44 @@
-# Dames chinoises
+# Chinese checkers
 
-Moteur du jeu de dames chinoises écrit en OCaml, en style fonctionnel. Il gère le plateau, les coups, les sauts multiples, la détection du gagnant et la simulation de parties complètes.
+A Chinese checkers engine written in functional OCaml. It handles the board, moves, multiple jumps, winner detection and full game simulation.
 
-## Le plateau
+## The board
 
-Le plateau en étoile à 6 branches est repéré en coordonnées cubiques `(i, j, k)`, avec `i + j + k = 0`. Ce choix simplifie beaucoup de choses : une rotation de 60° se fait en permutant les coordonnées et en changeant leurs signes, deux cases sont alignées quand elles ont une coordonnée en commun, et un déplacement est une addition de vecteurs.
+The six-pointed star board uses cube coordinates `(i, j, k)` with `i + j + k = 0`. This choice makes a lot of things simple: a 60° rotation is a permutation of the coordinates with sign changes, two cells are aligned when they share a coordinate, and a move is a vector addition.
 
-## Ce qui est implémenté
+## What's implemented
 
-- Géométrie : appartenance au losange et à l'étoile, rotation, translation, voisinage, case pivot d'un saut, vecteur et distance entre deux cases
-- Position de départ pour 1, 2, 3 ou 6 joueurs, obtenue en faisant tourner le triangle du premier joueur
-- Affichage du plateau en ASCII dans le terminal
-- Coups :
-  - `Du (c1, c2)` : déplacement d'une case
-  - saut par-dessus un pion, symétrique par rapport au pion sauté (le chemin doit être libre)
-  - `Sm [c1; c2; …]` : plusieurs sauts enchaînés
-- Validation des coups, puis rotation du plateau pour passer au joueur suivant
-- Score de chaque joueur et détection de la victoire
-- Simulation d'une partie à partir d'une liste de coups, qui renvoie le gagnant
+- Geometry: membership in the diamond and the star, rotation, translation, neighbors, pivot cell of a jump, vector and distance between two cells
+- Starting position for 1, 2, 3 or 6 players, built by rotating the first player's triangle
+- ASCII display of the board in the terminal
+- Moves:
+  - `Du (c1, c2)`: move by one cell
+  - jump over a piece, symmetric with respect to the jumped piece (the path must be clear)
+  - `Sm [c1; c2; …]`: several chained jumps
+- Move validation, then board rotation to hand over to the next player
+- Score of each player and win detection
+- Simulation of a full game from a list of moves, returning the winner
 
-Chaque fonction a ses tests `assert`.
+Every function has its own `assert` tests. Identifiers and comments in the code are in French.
 
-## Lancer
+## Running
 
 ```bash
 ocaml dames_chinoises.ml
 ```
 
-ou depuis l'interpréteur OCaml :
+or from the OCaml toplevel:
 
 ```ocaml
 #use "dames_chinoises.ml";;
 ```
 
-Au chargement, les tests tournent et quelques plateaux d'exemple s'affichent.
+When the file loads, the tests run and a few example boards are printed.
 
-## Notions utilisées
+## Concepts used
 
-Types somme et produit, filtrage par motif, récursivité sur les listes, fonctions d'ordre supérieur (`List.map`, `List.fold_right`), type `option`.
+Sum and product types, pattern matching, recursion on lists, higher-order functions (`List.map`, `List.fold_right`), the `option` type.
 
-## Auteur
+## Author
 
 Karim Glelah
